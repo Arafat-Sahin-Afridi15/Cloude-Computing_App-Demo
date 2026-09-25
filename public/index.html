@@ -1,249 +1,148 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta
-    name="description"
-    content="AI Cloud Service developed by Arafat Sahin Afridi"
-  />
-
   <title>AI Cloud Service | Arafat Sahin Afridi</title>
 
   <!-- Puter AI -->
-  <script src="https://js.puter.com/v2/puter.js"></script>
+  <script src="https://js.puter.com/v2/"></script>
 
   <style>
-    /* =========================================================
-       ROOT VARIABLES
-    ========================================================= */
-
-    :root {
-      --bg: #050816;
-      --bg-secondary: #0f172a;
-
-      --card: rgba(15, 23, 42, 0.72);
-      --card-border: rgba(148, 163, 184, 0.16);
-
-      --primary: #38bdf8;
-      --primary-light: #7dd3fc;
-
-      --purple: #8b5cf6;
-      --green: #22c55e;
-
-      --text: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --muted: #94a3b8;
-
-      --input-bg: rgba(2, 6, 23, 0.78);
-      --border: #263449;
-
-      --focus: #ffffff;
-    }
-
-
-    /* =========================================================
-       RESET
-    ========================================================= */
-
+    /* =========================
+       GLOBAL
+    ========================== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg: #050816;
+      --card: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --primary: #38bdf8;
+      --secondary: #8b5cf6;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --input: rgba(2, 6, 23, 0.75);
     }
-
 
     body {
       min-height: 100vh;
-
       font-family:
         Inter,
         "Segoe UI",
         Roboto,
         Arial,
         sans-serif;
-
       color: var(--text);
-
       background:
-        radial-gradient(
-          circle at 15% 20%,
-          rgba(56, 189, 248, 0.15),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 85% 80%,
-          rgba(139, 92, 246, 0.18),
-          transparent 30%
-        ),
-        linear-gradient(
-          135deg,
-          #020617,
-          #0f172a 55%,
-          #111827
-        );
-
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.15), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.18), transparent 30%),
+        linear-gradient(135deg, #020617, #0f172a 55%, #111827);
       overflow-x: hidden;
     }
 
-
-    button,
-    textarea {
-      font-family: inherit;
-    }
-
-
-    /* =========================================================
+    /* =========================
        ANIMATED BACKGROUND
-    ========================================================= */
-
+    ========================== */
     .background {
       position: fixed;
       inset: 0;
-
       overflow: hidden;
-
       pointer-events: none;
-
       z-index: -1;
     }
 
-
     .orb {
       position: absolute;
-
       border-radius: 50%;
-
       filter: blur(70px);
-
       opacity: 0.25;
-
-      animation: floating 8s ease-in-out infinite;
+      animation: float 8s ease-in-out infinite;
     }
 
-
-    .orb-one {
+    .orb.one {
       width: 260px;
       height: 260px;
-
       background: #0ea5e9;
-
       top: 5%;
       left: -80px;
     }
 
-
-    .orb-two {
+    .orb.two {
       width: 320px;
       height: 320px;
-
       background: #7c3aed;
-
       right: -100px;
       bottom: 5%;
-
       animation-delay: 2s;
     }
 
-
-    .orb-three {
+    .orb.three {
       width: 180px;
       height: 180px;
-
       background: #06b6d4;
-
       left: 50%;
       top: 45%;
-
       animation-delay: 4s;
     }
 
-
-    @keyframes floating {
-      0%,
-      100% {
-        transform: translate(0, 0);
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
       }
 
       50% {
-        transform: translate(20px, -35px);
+        transform: translateY(-35px) translateX(20px);
       }
     }
 
-
-    /* =========================================================
+    /* =========================
        MAIN CONTAINER
-    ========================================================= */
-
+    ========================== */
     .container {
       width: min(100%, 920px);
-
       margin: auto;
-
       padding: 55px 20px;
     }
 
-
-    /* =========================================================
+    /* =========================
        HEADER
-    ========================================================= */
-
+    ========================== */
     header {
       text-align: center;
-
       margin-bottom: 35px;
     }
 
-
     .badge {
       display: inline-flex;
-
       align-items: center;
-
       gap: 8px;
-
       padding: 8px 15px;
-
-      border-radius: 999px;
-
-      background: rgba(56, 189, 248, 0.08);
-
       border: 1px solid rgba(56, 189, 248, 0.25);
-
-      color: var(--primary-light);
-
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 999px;
+      color: #7dd3fc;
       font-size: 0.82rem;
-
       margin-bottom: 18px;
-
       backdrop-filter: blur(10px);
     }
-
 
     .status-dot {
       width: 8px;
       height: 8px;
-
+      background: #22c55e;
       border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow: 0 0 12px var(--green);
-
+      box-shadow: 0 0 12px #22c55e;
       animation: pulse 1.8s infinite;
     }
 
-
     @keyframes pulse {
-      0%,
-      100% {
+      0%, 100% {
         opacity: 1;
         transform: scale(1);
       }
@@ -254,37 +153,25 @@
       }
     }
 
-
     header h1 {
       font-size: clamp(2.3rem, 7vw, 4.2rem);
-
       line-height: 1.05;
-
       font-weight: 800;
-
       letter-spacing: -2px;
-
       margin-bottom: 15px;
 
-      background:
-        linear-gradient(
-          90deg,
-          #f8fafc,
-          #7dd3fc,
-          #a78bfa,
-          #f8fafc
-        );
-
+      background: linear-gradient(
+        90deg,
+        #f8fafc,
+        #7dd3fc,
+        #a78bfa,
+        #f8fafc
+      );
       background-size: 250% auto;
-
       -webkit-background-clip: text;
-      background-clip: text;
-
       -webkit-text-fill-color: transparent;
-
       animation: gradientText 5s linear infinite;
     }
-
 
     @keyframes gradientText {
       to {
@@ -292,76 +179,51 @@
       }
     }
 
-
     .subtitle {
       color: var(--muted);
-
       font-size: 1rem;
-
       max-width: 620px;
-
       margin: auto;
-
       line-height: 1.7;
     }
 
-
-    /* =========================================================
-       STUDENT INFORMATION
-    ========================================================= */
-
+    /* =========================
+       STUDENT INFO
+    ========================== */
     .student-info {
       display: flex;
-
       justify-content: center;
-
       flex-wrap: wrap;
-
       gap: 10px;
-
       margin-top: 22px;
     }
 
-
     .info-item {
       padding: 9px 14px;
-
       border-radius: 10px;
-
       background: rgba(15, 23, 42, 0.55);
-
       border: 1px solid var(--card-border);
-
-      color: var(--text-secondary);
-
+      color: #cbd5e1;
       font-size: 0.82rem;
-
       backdrop-filter: blur(10px);
     }
 
-
     .info-item strong {
-      color: var(--text);
+      color: #f8fafc;
     }
 
-
-    /* =========================================================
-       MAIN AI CARD
-    ========================================================= */
-
+    /* =========================
+       AI CARD
+    ========================== */
     .ai-card {
       position: relative;
-
       padding: 32px;
-
       border-radius: 25px;
 
       background: var(--card);
-
       border: 1px solid var(--card-border);
 
       backdrop-filter: blur(22px);
-
       -webkit-backdrop-filter: blur(22px);
 
       box-shadow:
@@ -371,54 +233,38 @@
       overflow: hidden;
     }
 
-
     .ai-card::before {
       content: "";
-
       position: absolute;
-
       top: 0;
       left: 10%;
-
       width: 80%;
       height: 1px;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          #38bdf8,
-          #8b5cf6,
-          transparent
-        );
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #38bdf8,
+        #8b5cf6,
+        transparent
+      );
     }
 
-
-    /* =========================================================
+    /* =========================
        CARD HEADER
-    ========================================================= */
-
+    ========================== */
     .card-header {
       display: flex;
-
       align-items: center;
-
       gap: 15px;
-
       margin-bottom: 25px;
     }
-
 
     .ai-icon {
       width: 52px;
       height: 52px;
-
       display: grid;
-
       place-items: center;
-
       border-radius: 15px;
-
       font-size: 1.5rem;
 
       background:
@@ -429,929 +275,466 @@
         );
 
       border: 1px solid rgba(125, 211, 252, 0.2);
-
-      box-shadow:
-        0 10px 30px rgba(56, 189, 248, 0.1);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
     }
-
 
     .card-header h2 {
       font-size: 1.25rem;
-
       margin-bottom: 4px;
     }
 
-
     .card-header p {
       color: var(--muted);
-
       font-size: 0.85rem;
     }
 
-
-    /* =========================================================
-       INPUT
-    ========================================================= */
-
+    /* =========================
+       TEXTAREA
+    ========================== */
     .input-wrapper {
       position: relative;
     }
 
-
-    .input-label {
-      display: block;
-
-      margin-bottom: 9px;
-
-      color: var(--text-secondary);
-
-      font-size: 0.9rem;
-
-      font-weight: 600;
-    }
-
-
     textarea {
       width: 100%;
-
       min-height: 145px;
-
       resize: vertical;
 
       padding: 18px 18px 42px;
 
       color: var(--text);
+      background: var(--input);
 
-      background: var(--input-bg);
-
-      border: 1px solid var(--border);
-
+      border: 1px solid #263449;
       border-radius: 16px;
 
       outline: none;
 
       font-size: 0.96rem;
-
       line-height: 1.6;
 
-      transition:
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-    }
+      transition: 0.25s ease;
 
+      font-family: inherit;
+    }
 
     textarea::placeholder {
       color: #64748b;
     }
 
-
-    textarea:hover {
-      border-color: #475569;
-    }
-
-
     textarea:focus {
       border-color: rgba(56, 189, 248, 0.65);
-
       box-shadow:
         0 0 0 4px rgba(56, 189, 248, 0.08),
         0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-
-    .input-help {
-      margin-top: 7px;
-
-      color: #64748b;
-
-      font-size: 0.75rem;
-
-      line-height: 1.5;
-    }
-
-
     .counter {
       position: absolute;
-
-      bottom: 43px;
+      bottom: 12px;
       right: 14px;
-
       color: #64748b;
-
       font-size: 0.72rem;
     }
 
-
-    /* =========================================================
-       BUTTONS
-    ========================================================= */
-
+    /* =========================
+       BUTTON
+    ========================== */
     .actions {
       display: flex;
-
       gap: 10px;
-
       margin-top: 14px;
     }
 
-
     button {
       border: none;
-
+      font-family: inherit;
       cursor: pointer;
-
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        background 0.25s ease;
+      transition: all 0.25s ease;
     }
-
 
     #askBtn {
       flex: 1;
-
       padding: 14px 22px;
 
       border-radius: 13px;
 
       color: #020617;
-
       font-size: 0.95rem;
-
       font-weight: 700;
 
-      background:
-        linear-gradient(
-          135deg,
-          #38bdf8,
-          #818cf8
-        );
+      background: linear-gradient(
+        135deg,
+        #38bdf8,
+        #818cf8
+      );
 
       box-shadow:
         0 10px 25px rgba(56, 189, 248, 0.18);
     }
 
-
-    #askBtn:hover:not(:disabled) {
+    #askBtn:hover {
       transform: translateY(-2px);
-
       box-shadow:
         0 15px 35px rgba(56, 189, 248, 0.3);
     }
 
-
-    #askBtn:active:not(:disabled) {
+    #askBtn:active {
       transform: translateY(0);
     }
 
-
     #askBtn:disabled {
       opacity: 0.65;
-
       cursor: not-allowed;
+      transform: none;
     }
-
 
     #clearBtn {
       padding: 14px 20px;
-
       border-radius: 13px;
 
-      color: var(--text-secondary);
-
+      color: #cbd5e1;
       background: rgba(30, 41, 59, 0.7);
-
       border: 1px solid #334155;
     }
 
-
     #clearBtn:hover {
       background: rgba(51, 65, 85, 0.8);
-
-      transform: translateY(-1px);
     }
 
-
-    /* =========================================================
-       KEYBOARD FOCUS
-    ========================================================= */
-
-    textarea:focus-visible,
-    button:focus-visible {
-      outline: 3px solid var(--focus);
-
-      outline-offset: 3px;
-    }
-
-
-    #askBtn:focus-visible {
-      box-shadow:
-        0 0 0 5px rgba(56, 189, 248, 0.35),
-        0 12px 30px rgba(56, 189, 248, 0.25);
-    }
-
-
-    #clearBtn:focus-visible {
-      background: #334155;
-    }
-
-
-    /* =========================================================
+    /* =========================
        RESPONSE
-    ========================================================= */
-
+    ========================== */
     .response-container {
       margin-top: 25px;
     }
 
-
     .response-label {
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
-
       margin-bottom: 10px;
     }
 
-
     .response-label span:first-child {
-      color: var(--text-secondary);
-
+      color: #cbd5e1;
       font-size: 0.85rem;
-
       font-weight: 600;
     }
 
-
     .powered {
       color: #64748b;
-
       font-size: 0.72rem;
     }
 
-
     #response {
       min-height: 125px;
-
       padding: 18px;
 
       border-radius: 16px;
 
       background: rgba(2, 6, 23, 0.68);
-
-      border: 1px solid var(--border);
+      border: 1px solid #263449;
 
       color: #dbeafe;
 
       white-space: pre-wrap;
-
       line-height: 1.7;
-
       font-size: 0.94rem;
 
       overflow-wrap: anywhere;
     }
 
-
-    /* =========================================================
-       LOADING ANIMATION
-    ========================================================= */
-
+    /* =========================
+       LOADING
+    ========================== */
     .loading {
       display: flex;
-
       align-items: center;
-
       gap: 8px;
-
-      color: var(--muted);
+      color: #94a3b8;
     }
 
-
-    .loading span:not(.loading-text) {
+    .loading span {
       width: 7px;
       height: 7px;
-
       border-radius: 50%;
-
-      background: var(--primary);
-
+      background: #38bdf8;
       animation: loading 1.2s infinite;
     }
-
 
     .loading span:nth-child(2) {
       animation-delay: 0.15s;
     }
 
-
     .loading span:nth-child(3) {
       animation-delay: 0.3s;
     }
 
-
     @keyframes loading {
-      0%,
-      60%,
-      100% {
+      0%, 60%, 100% {
         transform: translateY(0);
-
         opacity: 0.4;
       }
 
       30% {
         transform: translateY(-7px);
-
         opacity: 1;
       }
     }
 
-
-    /* =========================================================
+    /* =========================
        FEATURES
-    ========================================================= */
-
+    ========================== */
     .features {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-
       margin-top: 18px;
     }
 
-
     .feature {
       padding: 15px;
-
       text-align: center;
 
       border-radius: 14px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.1);
 
-      background:
-        rgba(15, 23, 42, 0.45);
-
-      border:
-        1px solid rgba(148, 163, 184, 0.1);
-
-      color: var(--muted);
-
+      color: #94a3b8;
       font-size: 0.75rem;
     }
 
-
     .feature-icon {
       display: block;
-
       font-size: 1.2rem;
-
       margin-bottom: 7px;
     }
 
-
-    /* =========================================================
+    /* =========================
        FOOTER
-    ========================================================= */
-
+    ========================== */
     footer {
       text-align: center;
-
       margin-top: 28px;
-
       color: #64748b;
-
       font-size: 0.78rem;
-
       line-height: 1.6;
     }
 
-
     footer strong {
-      color: var(--text-secondary);
+      color: #94a3b8;
     }
 
-
-    /* =========================================================
-       SCREEN READER ONLY
-    ========================================================= */
-
-    .sr-only {
-      position: absolute;
-
-      width: 1px;
-      height: 1px;
-
-      padding: 0;
-      margin: -1px;
-
-      overflow: hidden;
-
-      clip: rect(0, 0, 0, 0);
-
-      white-space: nowrap;
-
-      border: 0;
-    }
-
-
-    /* =========================================================
+    /* =========================
        MOBILE
-    ========================================================= */
-
+    ========================== */
     @media (max-width: 650px) {
-
       .container {
         padding: 35px 14px;
       }
 
-
       .ai-card {
         padding: 20px;
-
         border-radius: 20px;
       }
-
 
       header h1 {
         letter-spacing: -1px;
       }
 
-
       .student-info {
         gap: 7px;
       }
-
 
       .info-item {
         font-size: 0.72rem;
       }
 
-
       .features {
         grid-template-columns: 1fr;
       }
-
 
       .actions {
         flex-direction: column;
       }
 
-
       #clearBtn {
         width: 100%;
       }
-
     }
-
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-
-        animation-iteration-count: 1 !important;
-
-        transition-duration: 0.01ms !important;
-
-        scroll-behavior: auto !important;
-      }
-
-    }
-
   </style>
 </head>
 
-
 <body>
 
-
-  <!-- =======================================================
-       BACKGROUND
-  ======================================================== -->
-
-  <div
-    class="background"
-    aria-hidden="true"
-  >
-
-    <div class="orb orb-one"></div>
-
-    <div class="orb orb-two"></div>
-
-    <div class="orb orb-three"></div>
-
+  <!-- Animated Background -->
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
   </div>
-
-
-
-  <!-- =======================================================
-       MAIN
-  ======================================================== -->
 
   <main class="container">
 
-
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
-
+    <!-- Header -->
     <header>
 
-      <div
-        class="badge"
-        aria-label="AI Cloud Service is online"
-      >
-
-        <span
-          class="status-dot"
-          aria-hidden="true"
-        ></span>
-
+      <div class="badge">
+        <span class="status-dot"></span>
         AI CLOUD SERVICE • ONLINE
-
       </div>
 
-
-      <h1>
-        AI Cloud Service
-      </h1>
-
+      <h1>AI Cloud Service</h1>
 
       <p class="subtitle">
-
-        A modern AI-powered cloud application that lets you
-        ask questions, generate ideas, and interact with
-        artificial intelligence instantly.
-
+        A modern AI-powered cloud application that lets you ask questions,
+        generate ideas, and interact with artificial intelligence instantly.
       </p>
 
-
-      <!-- Student Information -->
-
       <div class="student-info">
-
         <div class="info-item">
-
-          <strong>Name:</strong>
-          Arafat Sahin Afridi
-
+          <strong>Name:</strong> Arafat Sahin Afridi
         </div>
 
-
         <div class="info-item">
-
-          <strong>Student ID:</strong>
-          2026512801
-
+          <strong>ID:</strong> 2026512801
         </div>
 
-
         <div class="info-item">
-
-          <strong>Course:</strong>
-          AI Cloud Service
-
+          <strong>Course:</strong> AI Cloud Service
         </div>
 
-
         <div class="info-item">
-
-          <strong>Instructor:</strong>
-          Prof. Julfikhsan Ahmad Mukhti
-
+          <strong>Instructor:</strong> Prof. Julfikhsan Ahmad Mukhti
         </div>
-
       </div>
 
     </header>
 
 
-
-    <!-- =====================================================
-         AI CARD
-    ====================================================== -->
-
-    <section
-      class="ai-card"
-      aria-labelledby="ai-title"
-    >
-
-
-      <!-- Card Header -->
+    <!-- AI Application -->
+    <section class="ai-card">
 
       <div class="card-header">
 
-        <div
-          class="ai-icon"
-          aria-hidden="true"
-        >
+        <div class="ai-icon">
           🤖
         </div>
 
-
         <div>
-
-          <h2 id="ai-title">
-            Ask the AI
-          </h2>
-
-
-          <p>
-            Enter your question or prompt below
-          </p>
-
+          <h2>Ask the AI</h2>
+          <p>Enter your question or prompt below</p>
         </div>
 
       </div>
 
 
-
-      <!-- =================================================
-           PROMPT INPUT
-      ================================================== -->
-
+      <!-- Input -->
       <div class="input-wrapper">
-
-        <label
-          for="prompt"
-          class="input-label"
-        >
-          Your question or prompt
-        </label>
-
 
         <textarea
           id="prompt"
-          name="prompt"
           maxlength="3000"
-          aria-describedby="prompt-help charCount"
           placeholder="Example: Explain artificial intelligence in simple words..."
-          autocomplete="off"
+          oninput="updateCounter()"
         ></textarea>
 
-
-        <div
-          id="prompt-help"
-          class="input-help"
-        >
-          Type your question and press
-          <strong>Ctrl + Enter</strong>
-          to submit.
-        </div>
-
-
-        <div
-          id="charCount"
-          class="counter"
-          aria-live="polite"
-          aria-label="Character count"
-        >
-          0 / 3000
+        <div class="counter">
+          <span id="charCount">0</span> / 3000
         </div>
 
       </div>
 
 
-
-      <!-- =================================================
-           ACTION BUTTONS
-      ================================================== -->
-
+      <!-- Buttons -->
       <div class="actions">
 
-        <button
-          id="askBtn"
-          type="button"
-          aria-controls="response"
-        >
+        <button id="askBtn" onclick="askAI()">
           ✨ Ask AI
         </button>
 
-
-        <button
-          id="clearBtn"
-          type="button"
-          aria-label="Clear question and AI response"
-        >
+        <button id="clearBtn" onclick="clearChat()">
           🗑 Clear
         </button>
 
       </div>
 
 
-
-      <!-- =================================================
-           RESPONSE
-      ================================================== -->
-
+      <!-- Response -->
       <div class="response-container">
 
         <div class="response-label">
-
-          <span id="response-title">
-            AI Response
-          </span>
-
-
-          <span class="powered">
-            Powered by Puter AI
-          </span>
-
+          <span>AI Response</span>
+          <span class="powered">Powered by Puter AI</span>
         </div>
 
-
-        <div
-          id="response"
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-          aria-labelledby="response-title"
-        >
-
-          Your AI-generated response
-          will appear here...
-
+        <div id="response">
+          Your AI-generated response will appear here...
         </div>
 
       </div>
 
 
-
-      <!-- =================================================
-           FEATURES
-      ================================================== -->
-
+      <!-- Features -->
       <div class="features">
 
         <div class="feature">
-
-          <span
-            class="feature-icon"
-            aria-hidden="true"
-          >
-            ⚡
-          </span>
-
+          <span class="feature-icon">⚡</span>
           Fast Response
-
         </div>
 
-
         <div class="feature">
-
-          <span
-            class="feature-icon"
-            aria-hidden="true"
-          >
-            ☁️
-          </span>
-
+          <span class="feature-icon">☁️</span>
           Cloud Powered
-
         </div>
 
-
         <div class="feature">
-
-          <span
-            class="feature-icon"
-            aria-hidden="true"
-          >
-            🔒
-          </span>
-
+          <span class="feature-icon">🔒</span>
           Simple & Secure
-
         </div>
 
       </div>
-
 
     </section>
 
 
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
+    <!-- Footer -->
     <footer>
-
-      <strong>
-        AI Cloud Service
-      </strong>
-
-      <br />
-
-      Developed by Arafat Sahin Afridi
-
-      <br />
-
-      Student ID: 2026512801
-
+      <strong>AI Cloud Service</strong><br />
+      Developed by Arafat Sahin Afridi • Student ID: 2026512801
     </footer>
-
 
   </main>
 
 
-
-  <!-- =======================================================
-       JAVASCRIPT
-  ======================================================== -->
-
   <script>
 
-    /* =======================================================
-       ELEMENTS
-    ======================================================== */
-
-    const promptEl =
-      document.getElementById("prompt");
-
-    const responseEl =
-      document.getElementById("response");
-
-    const askBtn =
-      document.getElementById("askBtn");
-
-    const clearBtn =
-      document.getElementById("clearBtn");
-
-    const charCount =
-      document.getElementById("charCount");
-
-
-
-    /* =======================================================
+    /* =========================
        CHARACTER COUNTER
-    ======================================================== */
+    ========================== */
 
     function updateCounter() {
+      const prompt = document.getElementById("prompt");
+      const count = document.getElementById("charCount");
 
-      const length =
-        promptEl.value.length;
-
-      charCount.textContent =
-        `${length} / 3000`;
-
+      count.textContent = prompt.value.length;
     }
 
 
-
-    /* =======================================================
-       LOADING STATE
-    ======================================================== */
-
-    function showLoading() {
-
-      responseEl.innerHTML = `
-
-        <div
-          class="loading"
-          aria-label="AI is thinking"
-        >
-
-          <span aria-hidden="true"></span>
-
-          <span aria-hidden="true"></span>
-
-          <span aria-hidden="true"></span>
-
-          <span class="loading-text">
-            AI is thinking...
-          </span>
-
-        </div>
-
-      `;
-
-    }
-
-
-
-    /* =======================================================
+    /* =========================
        ASK AI
-    ======================================================== */
+    ========================== */
 
     async function askAI() {
 
-      const prompt =
-        promptEl.value.trim();
+      const promptEl = document.getElementById("prompt");
+      const responseEl = document.getElementById("response");
+      const btn = document.getElementById("askBtn");
 
+      const prompt = promptEl.value.trim();
 
-      /* Empty input */
-
+      // Empty prompt validation
       if (!prompt) {
 
         responseEl.textContent =
@@ -1360,54 +743,49 @@
         promptEl.focus();
 
         return;
-
       }
 
 
-      /* Disable button */
-
-      askBtn.disabled = true;
-
-      askBtn.setAttribute(
-        "aria-busy",
-        "true"
-      );
-
-      askBtn.textContent =
-        "⏳ Thinking...";
+      // Disable button
+      btn.disabled = true;
+      btn.innerHTML = "⏳ Thinking...";
 
 
-      /* Show loading */
-
-      showLoading();
+      // Loading animation
+      responseEl.innerHTML = `
+        <div class="loading">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span>AI is thinking...</span>
+        </div>
+      `;
 
 
       try {
 
         /*
-         * Send prompt to Puter AI
-         */
+          Puter AI API
+        */
 
-        const response =
-          await puter.ai.chat(
-            prompt,
-            {
-              model: "gpt-5.4-nano"
-            }
-          );
+        const response = await puter.ai.chat(
+          prompt,
+          {
+            model: "gpt-5.4-nano"
+          }
+        );
 
 
         /*
-         * Extract response
-         */
+          Extract AI response
+        */
 
         let text =
           (
             response &&
             response.message &&
             response.message.content
-          )
-          ||
+          ) ||
           (
             typeof response === "string"
               ? response
@@ -1415,132 +793,62 @@
           );
 
 
-        /*
-         * Display response
-         */
-
-        responseEl.textContent =
-          text;
+        // Display response
+        responseEl.textContent = text;
 
       }
-
 
       catch (error) {
 
-        console.error(
-          "AI Error:",
-          error
-        );
-
+        console.error("AI Error:", error);
 
         responseEl.textContent =
-          "❌ Sorry, something went wrong while connecting to the AI service.\n\nPlease check your internet connection and try again.";
+          "❌ Sorry, something went wrong while connecting to the AI service.\n\nPlease try again.";
 
       }
-
 
       finally {
 
-        askBtn.disabled =
-          false;
-
-        askBtn.removeAttribute(
-          "aria-busy"
-        );
-
-        askBtn.textContent =
-          "✨ Ask AI";
+        btn.disabled = false;
+        btn.innerHTML = "✨ Ask AI";
 
       }
 
     }
 
 
-
-    /* =======================================================
-       CLEAR
-    ======================================================== */
+    /* =========================
+       CLEAR CHAT
+    ========================== */
 
     function clearChat() {
 
-      promptEl.value = "";
+      document.getElementById("prompt").value = "";
 
-
-      responseEl.textContent =
+      document.getElementById("response").textContent =
         "Your AI-generated response will appear here...";
 
-
-      updateCounter();
-
-
-      /*
-       * Return keyboard focus
-       * to main input
-       */
-
-      promptEl.focus();
+      document.getElementById("charCount").textContent = "0";
 
     }
 
 
+    /* =========================
+       ENTER KEY
+       Ctrl + Enter = Ask AI
+    ========================== */
 
-    /* =======================================================
-       INPUT EVENTS
-    ======================================================== */
+    document
+      .getElementById("prompt")
+      .addEventListener("keydown", function(event) {
 
-    promptEl.addEventListener(
-      "input",
-      updateCounter
-    );
-
-
-    /*
-     * Ctrl + Enter
-     * Submit AI request
-     */
-
-    promptEl.addEventListener(
-      "keydown",
-      function (event) {
-
-        if (
-          event.ctrlKey &&
-          event.key === "Enter"
-        ) {
-
-          event.preventDefault();
+        if (event.ctrlKey && event.key === "Enter") {
 
           askAI();
 
         }
 
-      }
-    );
-
-
-
-    /* =======================================================
-       BUTTON EVENTS
-    ======================================================== */
-
-    askBtn.addEventListener(
-      "click",
-      askAI
-    );
-
-
-    clearBtn.addEventListener(
-      "click",
-      clearChat
-    );
-
-
-
-    /* =======================================================
-       INITIALIZE
-    ======================================================== */
-
-    updateCounter();
+      });
 
   </script>
 
