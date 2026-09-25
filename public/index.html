@@ -1,154 +1,858 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AI Cloud Service - Arafat Sahin Afridi</title>
-<script src="https://js.puter.com/v2/"></script>
-<style>
-  :root {
-    --bg: #0f172a;
-    --card: #1e293b;
-    --accent: #38bdf8;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 16px;
-  }
-  header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  header h1 {
-    margin: 0 0 8px 0;
-    font-size: 1.8rem;
-  }
-  header p {
-    margin: 2px 0;
-    color: var(--muted);
-    font-size: 1rem;
-  }
-  .card {
-    background: var(--card);
-    border-radius: 14px;
-    padding: 28px;
-    width: 100%;
-    max-width: 560px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-  .card h2 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: var(--accent);
-  }
-  textarea {
-    width: 100%;
-    min-height: 90px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: #0f172a;
-    color: var(--text);
-    font-size: 0.95rem;
-    resize: vertical;
-  }
-  button {
-    margin-top: 14px;
-    padding: 10px 22px;
-    background: var(--accent);
-    color: #0f172a;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.95rem;
-  }
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  #response {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 8px;
-    background: #0f172a;
-    border: 1px solid #334155;
-    min-height: 40px;
-    white-space: pre-wrap;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  footer {
-    margin-top: 30px;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AI Cloud Service | Arafat Sahin Afridi</title>
+
+  <!-- Puter AI -->
+  <script src="https://js.puter.com/v2/"></script>
+
+  <style>
+    /* =========================
+       GLOBAL
+    ========================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #050816;
+      --card: rgba(15, 23, 42, 0.72);
+      --card-border: rgba(148, 163, 184, 0.16);
+      --primary: #38bdf8;
+      --secondary: #8b5cf6;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --input: rgba(2, 6, 23, 0.75);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.15), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.18), transparent 30%),
+        linear-gradient(135deg, #020617, #0f172a 55%, #111827);
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       ANIMATED BACKGROUND
+    ========================== */
+    .background {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.25;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 260px;
+      height: 260px;
+      background: #0ea5e9;
+      top: 5%;
+      left: -80px;
+    }
+
+    .orb.two {
+      width: 320px;
+      height: 320px;
+      background: #7c3aed;
+      right: -100px;
+      bottom: 5%;
+      animation-delay: 2s;
+    }
+
+    .orb.three {
+      width: 180px;
+      height: 180px;
+      background: #06b6d4;
+      left: 50%;
+      top: 45%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+
+      50% {
+        transform: translateY(-35px) translateX(20px);
+      }
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================== */
+    .container {
+      width: min(100%, 920px);
+      margin: auto;
+      padding: 55px 20px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 15px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 999px;
+      color: #7dd3fc;
+      font-size: 0.82rem;
+      margin-bottom: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #22c55e;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+      }
+    }
+
+    header h1 {
+      font-size: clamp(2.3rem, 7vw, 4.2rem);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+
+      background: linear-gradient(
+        90deg,
+        #f8fafc,
+        #7dd3fc,
+        #a78bfa,
+        #f8fafc
+      );
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientText 5s linear infinite;
+    }
+
+    @keyframes gradientText {
+      to {
+        background-position: 250% center;
+      }
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       STUDENT INFO
+    ========================== */
+    .student-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .info-item {
+      padding: 9px 14px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid var(--card-border);
+      color: #cbd5e1;
+      font-size: 0.82rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .info-item strong {
+      color: #f8fafc;
+    }
+
+    /* =========================
+       AI CARD
+    ========================== */
+    .ai-card {
+      position: relative;
+      padding: 32px;
+      border-radius: 25px;
+
+      background: var(--card);
+      border: 1px solid var(--card-border);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+      overflow: hidden;
+    }
+
+    .ai-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #38bdf8,
+        #8b5cf6,
+        transparent
+      );
+    }
+
+    /* =========================
+       CARD HEADER
+    ========================== */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .ai-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 1.5rem;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.2),
+          rgba(139, 92, 246, 0.2)
+        );
+
+      border: 1px solid rgba(125, 211, 252, 0.2);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.1);
+    }
+
+    .card-header h2 {
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+
+    .card-header p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       TEXTAREA
+    ========================== */
+    .input-wrapper {
+      position: relative;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 145px;
+      resize: vertical;
+
+      padding: 18px 18px 42px;
+
+      color: var(--text);
+      background: var(--input);
+
+      border: 1px solid #263449;
+      border-radius: 16px;
+
+      outline: none;
+
+      font-size: 0.96rem;
+      line-height: 1.6;
+
+      transition: 0.25s ease;
+
+      font-family: inherit;
+    }
+
+    textarea::placeholder {
+      color: #64748b;
+    }
+
+    textarea:focus {
+      border-color: rgba(56, 189, 248, 0.65);
+      box-shadow:
+        0 0 0 4px rgba(56, 189, 248, 0.08),
+        0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .counter {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      color: #64748b;
+      font-size: 0.72rem;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    #askBtn {
+      flex: 1;
+      padding: 14px 22px;
+
+      border-radius: 13px;
+
+      color: #020617;
+      font-size: 0.95rem;
+      font-weight: 700;
+
+      background: linear-gradient(
+        135deg,
+        #38bdf8,
+        #818cf8
+      );
+
+      box-shadow:
+        0 10px 25px rgba(56, 189, 248, 0.18);
+    }
+
+    #askBtn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 15px 35px rgba(56, 189, 248, 0.3);
+    }
+
+    #askBtn:active {
+      transform: translateY(0);
+    }
+
+    #askBtn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #clearBtn {
+      padding: 14px 20px;
+      border-radius: 13px;
+
+      color: #cbd5e1;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid #334155;
+    }
+
+    #clearBtn:hover {
+      background: rgba(51, 65, 85, 0.8);
+    }
+
+    /* =========================
+       RESPONSE
+    ========================== */
+    .response-container {
+      margin-top: 25px;
+    }
+
+    .response-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .response-label span:first-child {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .powered {
+      color: #64748b;
+      font-size: 0.72rem;
+    }
+
+    #response {
+      min-height: 125px;
+      padding: 18px;
+
+      border-radius: 16px;
+
+      background: rgba(2, 6, 23, 0.68);
+      border: 1px solid #263449;
+
+      color: #dbeafe;
+
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 0.94rem;
+
+      overflow-wrap: anywhere;
+    }
+
+    /* =========================
+       LOADING
+    ========================== */
+    .loading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+    }
+
+    .loading span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #38bdf8;
+      animation: loading 1.2s infinite;
+    }
+
+    .loading span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .loading span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes loading {
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-7px);
+        opacity: 1;
+      }
+    }
+
+    /* =========================
+       FEATURES
+    ========================== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      padding: 15px;
+      text-align: center;
+
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.1);
+
+      color: #94a3b8;
+      font-size: 0.75rem;
+    }
+
+    .feature-icon {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 7px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      color: #64748b;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    footer strong {
+      color: #94a3b8;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+    @media (max-width: 650px) {
+      .container {
+        padding: 35px 14px;
+      }
+
+      .ai-card {
+        padding: 20px;
+        border-radius: 20px;
+      }
+
+      header h1 {
+        letter-spacing: -1px;
+      }
+
+      .student-info {
+        gap: 7px;
+      }
+
+      .info-item {
+        font-size: 0.72rem;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      #clearBtn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <header>
-    <h1>AI Cloud Service</h1>
-    <p><strong>Name:</strong> Arafat Sahin Afridi</p>
-    <p><strong>Student ID:</strong> 2026512801</p>
-    <p><strong>Course:</strong> Arafat Sahin Afridi</p>
-    <p><strong>instructor:</strong> Pro. Julfikhsan Ahmad Mukhti</p>
-  </header>
-
-  <div class="card">
-    <h2>Ask the AI</h2>
-    <p style="color: var(--muted); font-size: 0.9rem;">
-      Type a question or prompt below and get an AI-generated response.
-    </p>
-    <textarea id="prompt" placeholder="Give me 3 tips for staying focused while studying"></textarea>
-    <br />
-    <button id="askBtn" onclick="askAI()">Ask AI</button>
-    <div id="response">Response will appear here...</div>
+  <!-- Animated Background -->
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
   </div>
 
-  <footer>Built Afridi Arafat Sahin </footer>
+  <main class="container">
+
+    <!-- Header -->
+    <header>
+
+      <div class="badge">
+        <span class="status-dot"></span>
+        AI CLOUD SERVICE • ONLINE
+      </div>
+
+      <h1>AI Cloud Service</h1>
+
+      <p class="subtitle">
+        A modern AI-powered cloud application that lets you ask questions,
+        generate ideas, and interact with artificial intelligence instantly.
+      </p>
+
+      <div class="student-info">
+        <div class="info-item">
+          <strong>Name:</strong> Arafat Sahin Afridi
+        </div>
+
+        <div class="info-item">
+          <strong>ID:</strong> 2026512801
+        </div>
+
+        <div class="info-item">
+          <strong>Course:</strong> AI Cloud Service
+        </div>
+
+        <div class="info-item">
+          <strong>Instructor:</strong> Prof. Julfikhsan Ahmad Mukhti
+        </div>
+      </div>
+
+    </header>
+
+
+    <!-- AI Application -->
+    <section class="ai-card">
+
+      <div class="card-header">
+
+        <div class="ai-icon">
+          🤖
+        </div>
+
+        <div>
+          <h2>Ask the AI</h2>
+          <p>Enter your question or prompt below</p>
+        </div>
+
+      </div>
+
+
+      <!-- Input -->
+      <div class="input-wrapper">
+
+        <textarea
+          id="prompt"
+          maxlength="3000"
+          placeholder="Example: Explain artificial intelligence in simple words..."
+          oninput="updateCounter()"
+        ></textarea>
+
+        <div class="counter">
+          <span id="charCount">0</span> / 3000
+        </div>
+
+      </div>
+
+
+      <!-- Buttons -->
+      <div class="actions">
+
+        <button id="askBtn" onclick="askAI()">
+          ✨ Ask AI
+        </button>
+
+        <button id="clearBtn" onclick="clearChat()">
+          🗑 Clear
+        </button>
+
+      </div>
+
+
+      <!-- Response -->
+      <div class="response-container">
+
+        <div class="response-label">
+          <span>AI Response</span>
+          <span class="powered">Powered by Puter AI</span>
+        </div>
+
+        <div id="response">
+          Your AI-generated response will appear here...
+        </div>
+
+      </div>
+
+
+      <!-- Features -->
+      <div class="features">
+
+        <div class="feature">
+          <span class="feature-icon">⚡</span>
+          Fast Response
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">☁️</span>
+          Cloud Powered
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">🔒</span>
+          Simple & Secure
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+      <strong>AI Cloud Service</strong><br />
+      Developed by Arafat Sahin Afridi • Student ID: 2026512801
+    </footer>
+
+  </main>
+
 
   <script>
+
+    /* =========================
+       CHARACTER COUNTER
+    ========================== */
+
+    function updateCounter() {
+      const prompt = document.getElementById("prompt");
+      const count = document.getElementById("charCount");
+
+      count.textContent = prompt.value.length;
+    }
+
+
+    /* =========================
+       ASK AI
+    ========================== */
+
     async function askAI() {
-      const promptEl = document.getElementById('prompt');
-      const responseEl = document.getElementById('response');
-      const btn = document.getElementById('askBtn');
+
+      const promptEl = document.getElementById("prompt");
+      const responseEl = document.getElementById("response");
+      const btn = document.getElementById("askBtn");
+
       const prompt = promptEl.value.trim();
 
+      // Empty prompt validation
       if (!prompt) {
-        responseEl.textContent = "Please type something first.";
+
+        responseEl.textContent =
+          "⚠️ Please enter a question or prompt first.";
+
+        promptEl.focus();
+
         return;
       }
 
+
+      // Disable button
       btn.disabled = true;
-      btn.textContent = "Thinking...";
-      responseEl.textContent = "Loading...";
+      btn.innerHTML = "⏳ Thinking...";
+
+
+      // Loading animation
+      responseEl.innerHTML = `
+        <div class="loading">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span>AI is thinking...</span>
+        </div>
+      `;
+
 
       try {
-        const response = await puter.ai.chat(prompt, { model: "gpt-5.4-nano" });
-        const text =
-          (response && response.message && response.message.content) ||
-          (typeof response === "string" ? response : JSON.stringify(response));
+
+        /*
+          Puter AI API
+        */
+
+        const response = await puter.ai.chat(
+          prompt,
+          {
+            model: "gpt-5.4-nano"
+          }
+        );
+
+
+        /*
+          Extract AI response
+        */
+
+        let text =
+          (
+            response &&
+            response.message &&
+            response.message.content
+          ) ||
+          (
+            typeof response === "string"
+              ? response
+              : JSON.stringify(response)
+          );
+
+
+        // Display response
         responseEl.textContent = text;
-      } catch (err) {
-        console.error(err);
-        responseEl.textContent = "Error: could not get a response. Please try again.";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Ask AI";
+
       }
+
+      catch (error) {
+
+        console.error("AI Error:", error);
+
+        responseEl.textContent =
+          "❌ Sorry, something went wrong while connecting to the AI service.\n\nPlease try again.";
+
+      }
+
+      finally {
+
+        btn.disabled = false;
+        btn.innerHTML = "✨ Ask AI";
+
+      }
+
     }
+
+
+    /* =========================
+       CLEAR CHAT
+    ========================== */
+
+    function clearChat() {
+
+      document.getElementById("prompt").value = "";
+
+      document.getElementById("response").textContent =
+        "Your AI-generated response will appear here...";
+
+      document.getElementById("charCount").textContent = "0";
+
+    }
+
+
+    /* =========================
+       ENTER KEY
+       Ctrl + Enter = Ask AI
+    ========================== */
+
+    document
+      .getElementById("prompt")
+      .addEventListener("keydown", function(event) {
+
+        if (event.ctrlKey && event.key === "Enter") {
+
+          askAI();
+
+        }
+
+      });
+
   </script>
 
 </body>
 </html>
+```
